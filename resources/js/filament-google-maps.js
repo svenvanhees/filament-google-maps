@@ -183,7 +183,20 @@ export default function filamentGoogleMapsField({
         this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
         searchBox.addListener("places_changed", () => {
           input.value = "";
-          this.markerLocation = searchBox.getPlaces()[0].geometry.location;
+          const places = searchBox.getPlaces();
+          if (!places || places.length === 0) return;
+          const place = places[0];
+          if (!place.geometry || !place.geometry.location) {
+            window.alert("No details available for input: '" + place.name + "'");
+            return;
+          }
+          if (place.geometry.viewport) {
+            this.map.fitBounds(place.geometry.viewport);
+          } else {
+            this.map.setCenter(place.geometry.location);
+          }
+          this.markerLocation = place.geometry.location;
+          this.markerMoved({ latLng: place.geometry.location, placeId: place.place_id });
         });
       }
 

@@ -60,7 +60,7 @@
         wire:ignore
     >
         @if ($isSearchBoxControlEnabled())
-            <input x-ref="pacinput" type="text" placeholder="Search Box" />
+            <input x-ref="pacinput" type="text" placeholder="{{ __('filament-google-maps::fgm.map.search_placeholder') }}" />
         @endif
 
         <div

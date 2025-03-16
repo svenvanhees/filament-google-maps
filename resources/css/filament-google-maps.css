@@ -13,3 +13,16 @@
 .custom-map-control-button:hover {
     background: rgb(235, 235, 235);
 }
+input[x-ref="pacinput"] {
+    top: 0.75rem !important;
+    inset-inline-end: 0.75rem !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-radius: 0.125rem;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    outline: none;
+}
+input[x-ref="pacinput"]:focus {
+    box-shadow: none;
+    border-color: black;
+}
