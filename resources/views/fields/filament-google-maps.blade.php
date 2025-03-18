@@ -5,6 +5,7 @@
 
     <div
         x-ignore
+        x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('filament-google-maps', 'cheesegrits/filament-google-maps'))]"
         ax-load
         ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('filament-google-maps-field', 'cheesegrits/filament-google-maps') }}"
         x-data="filamentGoogleMapsField({
@@ -60,7 +61,12 @@
         wire:ignore
     >
         @if ($isSearchBoxControlEnabled())
-            <input x-ref="pacinput" type="text" placeholder="{{ __('filament-google-maps::fgm.map.search_placeholder') }}" />
+            <input
+                class="modern-look"
+                x-ref="pacinput"
+                type="text"
+                placeholder="{{ __('filament-google-maps::fgm.map.search_placeholder') }}"
+            />
         @endif
 
         <div

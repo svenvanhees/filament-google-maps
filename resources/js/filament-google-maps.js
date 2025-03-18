@@ -318,11 +318,12 @@ export default function filamentGoogleMapsField({
         const locationButton = document.createElement("button");
 
         locationButton.textContent = geolocateLabel;
-        locationButton.classList.add("custom-map-control-button");
+        locationButton.classList.add("custom-map-control-button", 'modern-look');
+
         this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(
           locationButton
         );
-
+        
         locationButton.addEventListener("click", (e) => {
           e.preventDefault();
           this.getLocation();

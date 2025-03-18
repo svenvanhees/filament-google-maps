@@ -22,12 +22,9 @@ const commonOptions = {
   minifyWhitespace: true,
 };
 
-buildWithWatch({
-  ...commonOptions,
-  entryPoints: [`resources/js/index.js`],
-  outfile: `dist/index.js`,
-  platform: "browser",
-}).catch(() => process.exit(1));
+// * ============
+// * Building JS
+// * ==========
 
 const formComponents = [
   "filament-google-geocomplete",
@@ -44,3 +41,14 @@ formComponents.forEach((component) => {
     platform: "neutral",
   }).catch(() => process.exit(1));
 });
+
+// * =============
+// * Building CSS
+// * ===========
+
+buildWithWatch({
+  ...commonOptions,
+  entryPoints: ["resources/css/filament-google-maps.css"],
+  outfile: "dist/cheesegrits/filament-google-maps/filament-google-maps.css",
+  loader: { ".css": "css" },
+}).catch(() => process.exit(1));
