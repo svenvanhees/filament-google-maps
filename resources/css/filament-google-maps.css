@@ -25,6 +25,7 @@ input[x-ref="pacinput"].modern-look:focus {
 /* * ============= */
 
 .custom-map-control-button {
+    vertical-align: middle;
     padding: 0.2rem 0.65rem 2.25rem 0.65rem;
     font: 400 15px Roboto, Arial, sans-serif;
     background: #ffffff;
