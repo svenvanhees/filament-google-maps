@@ -37,6 +37,9 @@ input[x-ref="pacinput"].modern-look:focus {
 .custom-map-control-button:hover {
     background: rgb(241 241 241);
 }
+.custom-map-control-button.icon-padding {
+    padding: 0.5rem .65rem 2rem 0.65rem !important;
+}
 
 /* * ================= */
 /* * Search Box Input */

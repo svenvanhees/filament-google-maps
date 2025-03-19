@@ -57,7 +57,7 @@ class Map extends Field
 
     protected Closure|bool $drawingControl = false;
 
-    protected Closure|int $drawingControlPosition = MapsHelper::POSITION_TOP_CENTER;
+    protected Closure|int $drawingControlPosition = MapsHelper::POSITION_BOTTOM_CENTER;
 
     protected Closure|string|null $geoJsonFile = null;
 
@@ -94,7 +94,7 @@ class Map extends Field
         'geolocate'           => false,
         'geolocateOnLoad'     => false,
         'geolocateLabel'      => '',
-        'geolocatePosition'   => 'TOP_CENTER',
+        'geolocatePosition'   => 'BOTTOM_CENTER',
         'draggable'           => true,
         'clickable'           => false,
         'defaultLocation'     => [
