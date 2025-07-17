@@ -2,6 +2,9 @@
 
 namespace Cheesegrits\FilamentGoogleMaps\Tests\Columns\Fixtures;
 
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Columns\TextColumn;
 use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
 use Cheesegrits\FilamentGoogleMaps\Filters\RadiusFilter;
 use Cheesegrits\FilamentGoogleMaps\Tests\Models\Location;
@@ -13,21 +16,21 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class LocationTable extends Component implements HasForms, Tables\Contracts\HasTable
+class LocationTable extends Component implements HasForms, HasTable
 {
     use InteractsWithForms;
-    use Tables\Concerns\InteractsWithTable;
+    use InteractsWithTable;
 
     protected function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('name'),
-            Tables\Columns\TextColumn::make('lat'),
-            Tables\Columns\TextColumn::make('lng'),
-            Tables\Columns\TextColumn::make('street'),
-            Tables\Columns\TextColumn::make('city'),
-            Tables\Columns\TextColumn::make('state'),
-            Tables\Columns\TextColumn::make('zip'),
+            TextColumn::make('name'),
+            TextColumn::make('lat'),
+            TextColumn::make('lng'),
+            TextColumn::make('street'),
+            TextColumn::make('city'),
+            TextColumn::make('state'),
+            TextColumn::make('zip'),
             //			Tables\Columns\TextColumn::make('processed')
             //				->hidden(),
             //			Tables\Columns\TextColumn::make('formatted_address'),

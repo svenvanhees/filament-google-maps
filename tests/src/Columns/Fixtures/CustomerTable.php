@@ -2,6 +2,9 @@
 
 namespace Cheesegrits\FilamentGoogleMaps\Tests\Columns\Fixtures;
 
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Columns\TextColumn;
 use Cheesegrits\FilamentGoogleMaps\Filters\RadiusFilter;
 use Cheesegrits\FilamentGoogleMaps\Tests\Models\Customer;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -11,16 +14,16 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class CustomerTable extends Component implements HasForms, Tables\Contracts\HasTable
+class CustomerTable extends Component implements HasForms, HasTable
 {
     use InteractsWithForms;
-    use Tables\Concerns\InteractsWithTable;
+    use InteractsWithTable;
 
     protected function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('name'),
-            Tables\Columns\TextColumn::make('location.name'),
+            TextColumn::make('name'),
+            TextColumn::make('location.name'),
         ];
     }
 

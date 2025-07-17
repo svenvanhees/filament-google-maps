@@ -2,15 +2,17 @@
 
 namespace Cheesegrits\FilamentGoogleMaps\Tests\Fields\Fixtures;
 
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Concerns\InteractsWithForms;
 use Cheesegrits\FilamentGoogleMaps\Fields\Geocomplete;
 use Cheesegrits\FilamentGoogleMaps\Tests\Models\Location;
 use Filament\Forms;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class CreateLocation extends Component implements Forms\Contracts\HasForms
+class CreateLocation extends Component implements HasForms
 {
-    use Forms\Concerns\InteractsWithForms;
+    use InteractsWithForms;
 
     public $location;
 

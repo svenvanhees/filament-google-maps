@@ -2,6 +2,18 @@
 
 namespace Cheesegrits\FilamentGoogleMaps\Tests\Fields\Fixtures\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Actions\ViewAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteBulkAction;
+use Cheesegrits\FilamentGoogleMaps\Tests\Fields\Fixtures\Resources\GeocompleteResource\Pages\ListGeocompletes;
+use Cheesegrits\FilamentGoogleMaps\Tests\Fields\Fixtures\Resources\GeocompleteResource\Pages\CreateGeocomplete;
+use Cheesegrits\FilamentGoogleMaps\Tests\Fields\Fixtures\Resources\GeocompleteResource\Pages\ViewGeocomplete;
+use Cheesegrits\FilamentGoogleMaps\Tests\Fields\Fixtures\Resources\GeocompleteResource\Pages\EditGeocomplete;
 use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
 // use App\Filament\Resources\LocationResource\RelationManagers;
 use Cheesegrits\FilamentGoogleMaps\Fields\Geocomplete;
@@ -10,7 +22,6 @@ use Cheesegrits\FilamentGoogleMaps\Filters\RadiusFilter;
 use Cheesegrits\FilamentGoogleMaps\Tests\Fields\Fixtures\Resources\GeocompleteResource\Pages;
 use Cheesegrits\FilamentGoogleMaps\Tests\Models\Location;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -19,25 +30,25 @@ class GeocompleteResource extends Resource
 {
     protected static ?string $model = Location::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-collection';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->maxLength(256),
-                Forms\Components\TextInput::make('lat')
+                TextInput::make('lat')
                     ->maxLength(32),
-                Forms\Components\TextInput::make('lng')
+                TextInput::make('lng')
                     ->maxLength(32),
-                Forms\Components\TextInput::make('street')
+                TextInput::make('street')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('city')
+                TextInput::make('city')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('state')
+                TextInput::make('state')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('zip')
+                TextInput::make('zip')
                     ->maxLength(255),
                 Geocomplete::make('formatted_address'),
                 //                    ->types(['airport'])
@@ -75,18 +86,18 @@ class GeocompleteResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('lat'),
-                Tables\Columns\TextColumn::make('lng'),
-                Tables\Columns\TextColumn::make('street'),
-                Tables\Columns\TextColumn::make('city'),
-                Tables\Columns\TextColumn::make('state'),
-                Tables\Columns\TextColumn::make('zip'),
-                Tables\Columns\TextColumn::make('formatted_address'),
+                TextColumn::make('name'),
+                TextColumn::make('lat'),
+                TextColumn::make('lng'),
+                TextColumn::make('street'),
+                TextColumn::make('city'),
+                TextColumn::make('state'),
+                TextColumn::make('zip'),
+                TextColumn::make('formatted_address'),
                 MapColumn::make('location'),
             ])
             ->filters([
-                Tables\Filters\TernaryFilter::make('processed'),
+                TernaryFilter::make('processed'),
                 RadiusFilter::make('radius')
                     ->latitude('lat')
                     ->longitude('lng')
@@ -94,13 +105,13 @@ class GeocompleteResource extends Resource
                 //                    ->section('Radius Search'),
             ]
             )
-            ->filtersLayout(Tables\Enums\FiltersLayout::Dropdown)
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+            ->filtersLayout(FiltersLayout::Dropdown)
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                DeleteBulkAction::make(),
             ]);
     }
 
@@ -119,10 +130,10 @@ class GeocompleteResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListGeocompletes::route('/'),
-            'create' => Pages\CreateGeocomplete::route('/create'),
-            'view'   => Pages\ViewGeocomplete::route('/{record}'),
-            'edit'   => Pages\EditGeocomplete::route('/{record}/edit'),
+            'index'  => ListGeocompletes::route('/'),
+            'create' => CreateGeocomplete::route('/create'),
+            'view'   => ViewGeocomplete::route('/{record}'),
+            'edit'   => EditGeocomplete::route('/{record}/edit'),
         ];
     }
 }
