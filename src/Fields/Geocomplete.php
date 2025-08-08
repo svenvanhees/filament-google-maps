@@ -320,13 +320,7 @@ class Geocomplete extends Field implements CanBeLengthConstrained, HasAffixActio
 
     public function getTypes(): array
     {
-        $types = $this->evaluate($this->types);
-
-        if (count($types) === 0) {
-            $types = ['geocode'];
-        }
-
-        return $types;
+        return $this->evaluate($this->types);
     }
 
     /**
