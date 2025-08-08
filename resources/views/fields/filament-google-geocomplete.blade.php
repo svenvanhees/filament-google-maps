@@ -48,7 +48,7 @@
                             $wire.reverseGeocodeUsing(@js($statePath), results)
                         },
                         filterName: @js($getFilterName()),
-                        statePath: @js($getStatePath()),
+                        statePath: @js($id()),
                         isLocation: @js($getIsLocation()),
                         reverseGeocodeFields: @js($getReverseGeocode()),
                         hasReverseGeocodeUsing: @js($getReverseGeocodeUsing()),
