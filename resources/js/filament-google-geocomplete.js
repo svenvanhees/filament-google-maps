@@ -17,6 +17,8 @@ export default function filamentGoogleGeocomplete({
   const geocompleteEl = isLocation ? statePath + "-fgm-address" : statePath;
   const geoComplete = document.getElementById(geocompleteEl);
 
+  console.log("geocomplete", geoComplete);
+
   return {
     geocoder: null,
     mapEl: null,
@@ -70,7 +72,7 @@ export default function filamentGoogleGeocomplete({
     },
 
     init: function (mapEl) {
-      console.log("geocomplete init");
+      console.log("geocomplete init s", mapEl);
       this.mapEl = mapEl;
 
       // let typingTimer;
