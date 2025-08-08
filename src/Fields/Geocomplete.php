@@ -376,6 +376,7 @@ class Geocomplete extends Field implements CanBeLengthConstrained, HasAffixActio
         parent::setUp();
 
         $this->afterStateHydrated(static function (Geocomplete $component, $state) {
+
             if ($component->getIsLocation()) {
                 if ($component->getGeocodeOnLoad()) {
                     $state = static::getLocationState($state);
@@ -388,6 +389,7 @@ class Geocomplete extends Field implements CanBeLengthConstrained, HasAffixActio
                 } else {
                     $state['formatted_address'] = '';
                 }
+
 
                 $component->state($state);
             }
