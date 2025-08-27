@@ -209,6 +209,8 @@ export default function filamentGoogleGeocomplete({
 
         // Collect all update promises
         for (const field in reverseGeocodeFields) {
+          if (field === statePath) continue;
+
           let replaced = reverseGeocodeFields[field];
 
           for (const replacement in replacements) {
