@@ -76,7 +76,7 @@
                             'autocomplete'                                                          => $getAutocomplete(),
                             'autofocus'                                                             => $isAutofocused(),
                             'disabled'                                                              => $isDisabled,
-                            'id'                                                                    => $getStatePath(),
+                            'id'                                                                    => $id,
                             'inlinePrefix'                                                          => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
                             'inlineSuffix'                                                          => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
                             'inputmode'                                                             => $getInputMode(),
