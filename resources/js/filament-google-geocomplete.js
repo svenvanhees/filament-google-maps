@@ -85,9 +85,6 @@ class GeocompleteManager {
 
                 const scriptId = "filament-google-maps-google-maps-js";
                 if (document.getElementById(scriptId)) {
-                    // If script exists but google is not ready, it might be loading.
-                    // A more robust solution would be needed if this happens often.
-                    // For now, we assume this implies a previous failed load.
                     return reject("Google Maps script tag found, but API not available.");
                 }
 
@@ -108,22 +105,24 @@ class GeocompleteManager {
         return googleMapsPromise;
     }
 
-    _createAutocomplete() {
+    async _createAutocomplete() {
+        const {
+            Place
+        } = await google.maps.importLibrary("places");
         this.geocoder = new google.maps.Geocoder();
 
-        const fields = new Set(["address_components", "formatted_address", "geometry", "name", this.placeField]);
-
-        const autocomplete = new google.maps.places.Autocomplete(
+        const autocomplete = new Place.Autocomplete(
             this.autocompleteInput, {
-                fields: Array.from(fields),
+                fields: ["address_components", "formatted_address", "geometry", "name", this.placeField],
                 strictBounds: false,
                 types: this.types,
             }
         );
 
-        autocomplete.setComponentRestrictions({ country: this.countries });
+        autocomplete.setComponentRestrictions({
+            country: this.countries
+        });
 
-        // Prevent form submission on pressing "Enter" in the autocomplete dropdown
         this.autocompleteInput.addEventListener("keydown", (e) => {
             if (e.key === "Enter" && document.querySelector('.pac-item-selected')) {
                 e.preventDefault();
@@ -158,8 +157,12 @@ class GeocompleteManager {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
                     };
-                    this.geocoder.geocode({ location })
-                        .then(({ results }) => {
+                    this.geocoder.geocode({
+                        location
+                    })
+                        .then(({
+                                   results
+                               }) => {
                             if (results[0]) {
                                 this.autocompleteInput.value = results[0].formatted_address;
                                 this._handlePlaceSelected(results[0]);
@@ -179,8 +182,7 @@ class GeocompleteManager {
     }
 
     async setLocation(place) {
-        const locationData = this.isLocation ?
-            {
+        const locationData = this.isLocation ? {
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng(),
                 formatted_address: place[this.placeField] || place.formatted_address,
@@ -190,8 +192,6 @@ class GeocompleteManager {
         await this.setStateUsing(this.statePath, locationData);
 
         if (this.filterName) {
-            // This part is for filters and might not use Livewire's state.
-            // If it does, it should also be part of the Promise.all batch.
             const latPath = `${this.filterName}.latitude`;
             const lngPath = `${this.filterName}.longitude`;
             document.getElementById(latPath)?.setAttribute("value", place.geometry.location.lat());
@@ -216,7 +216,6 @@ class GeocompleteManager {
             for (const [symbol, value] of Object.entries(replacements)) {
                 replacedValue = replacedValue.replaceAll(symbol, value);
             }
-            // Clean up any unused symbols
             for (const symbol of Object.keys(SYMBOLS)) {
                 replacedValue = replacedValue.replaceAll(symbol, "");
             }
@@ -224,8 +223,7 @@ class GeocompleteManager {
             updatePromises.push(this.setStateUsing(field, replacedValue.trim()));
         }
 
-        // Wait for all state updates to complete in parallel
-        if(updatePromises.length > 0) {
+        if (updatePromises.length > 0) {
             try {
                 await Promise.all(updatePromises);
             } catch (error) {
@@ -239,7 +237,10 @@ class GeocompleteManager {
     }
 
     async updateLatLng(place) {
-        const { lat, lng } = this.latLngFields;
+        const {
+            lat,
+            lng
+        } = this.latLngFields;
         if (!(lat && lng && place.geometry)) return;
 
         const latValue = place.geometry.location.lat().toFixed(7);
@@ -280,10 +281,8 @@ class GeocompleteManager {
     }
 }
 
-// The exported function now acts as a factory for the class.
 export default function filamentGoogleGeocomplete(options) {
     const manager = new GeocompleteManager(options);
     manager.init();
-    // Return the instance if it needs to be accessible externally
     return manager;
 }
